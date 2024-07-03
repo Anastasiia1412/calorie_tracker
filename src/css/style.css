@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  /*font-size: 10px; устанавливаем для легкой конвертации в rem. 1 rem = 16 px*/
+  font-size: 62.5%;
+  /* overflow-x: hidden; */
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: #555;
+  /* overflow-x: hidden; */
+}
+/* body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+} */
+
+header {
+  height: 6.8rem;
+  background-color: #60ae64;
+}
+
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+}
+
+.all_categories {
+  display: flex;
+  gap: 4.8rem;
+  justify-content: center;
+  background-color: rgba(196, 237, 203, 0.973);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.category {
+  border: 1px solid #827f7f;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+
+  /* position: relative;
+  overflow: hidden; Prevent the pseudo-element from overflowing */
+}
+
+.veggies {
+  background-image: url("../../public/images/veggies.jpg");
+  background-size: cover; /* Add these lines to ensure the background covers the element */
+  background-position: center; /* Center the image */
+  /* height: 100px; */
+  color: white; /* Text color for contrast */
+  /* Ensure relative positioning */
+}
+
+.fruits {
+  background-image: url("../../public/images/fruits.jpg");
+  background-size: cover;
+  background-position: center;
+
+  color: white;
+}
+
+.meet {
+  background-image: url("../../public/images/meet.jpg");
+  background-size: cover;
+  background-position: center;
+
+  color: white;
+}
+
+.category h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  font-size: 3.2rem;
+}
+
+#select-where {
+  margin-top: 2;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- добавить иконку на сайт -->
+    <link rel="icon" href="public/favicon/favicon.png" />
+    <link rel="apple-touch-icon" href="public/apple-touch-icon.png" />
+    <!-- файл для андройда для распознования иконок -->
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="src/css/style.css" />
+    <script defer src="src/js/main.js"></script>
+    <title>NutriTrack</title>
+  </head>
+  <body>
+    <header>
+      <p>NutriTrack</p>
+    </header>
+
+    <div class="all_categories container">
+      <div class="category veggies">
+        <h2>Овощи</h2>
+        <select id="select-where" required>
+          <option value="0">Выберите продукт</option>
+          <option value="broccoli">Брокколи</option>
+          <option value="carrot">Морковь</option>
+          <option value="pepper">Перец</option>
+        </select>
+        <div class="nutrition-info"></div>
+      </div>
+
+      <div class="category fruits">
+        <h2>Фрукты</h2>
+        <select id="select-where" required>
+          <option value="0">Выберите продукт</option>
+          <option value="apple">яблоко</option>
+          <option value="banana">банан</option>
+          <option value="orange">апельсин</option>
+        </select>
+        <div class="nutrition-info"></div>
+      </div>
+
+      <div class="category meet">
+        <h2>Мясо</h2>
+        <select id="select-where" required>
+          <option value="0">Выберите продукт</option>
+          <option value="chicken">Курица</option>
+          <option value="beef">Говядина</option>
+          <option value="pork">Свинина</option>
+        </select>
+        <div class="nutrition-info"></div>
+      </div>
+
+      <div class="category meet">
+        <h2>Мясо</h2>
+        <select id="select-where" required>
+          <option value="0">Выберите продукт</option>
+          <option value="chicken">Курица</option>
+          <option value="beef">Говядина</option>
+          <option value="pork">Свинина</option>
+        </select>
+        <div class="nutrition-info"></div>
+      </div>
+    </div>
+  </body>
+</html>
