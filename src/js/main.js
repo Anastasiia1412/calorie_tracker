@@ -55,7 +55,29 @@ function selectProductClick() {
         <p>Углеводы: ${nutrition.carbs} г</p>
     `;
   }
-
 }
 
+const startCalculateCalories = document.getElementById('btn-count-calories');
+startCalculateCalories.addEventListener('click', calculateCalories)
+
+
+function calculateCalories() {
+  let weight = document.getElementById('weight').value
+  let height = document.getElementById('height').value
+  let age = document.getElementById('age').value
+  let activity = document.getElementById('activity').value
+
+  if (!weight || !height || !age || !activity) {
+    alert('Please fill in all fields');
+    return;
+  }
+
+  const bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  // Calorie needs calculation
+  const calories = bmr * activity;
+
+  document.getElementById('result').innerHTML = `Ваша ежедневная норма составляет: ${Math.round(calories)} calories`
+  console.log(calories);
+
+}
 
