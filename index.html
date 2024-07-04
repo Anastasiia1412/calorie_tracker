@@ -23,11 +23,117 @@
     <title>NutriTrack</title>
   </head>
   <body>
+    <!-- /////////////////////////////////////////////////HEADER///////////////////////////////////////////////// -->
     <header>
-      <a href="#"> <img src=" " class="logo" alt="Omnifood" /></a>
-      <p>NutriTrack</p>
+      <a href="#">
+        <img src="public/images/Nutri-logo.png" class="logo" alt="NutriTrack"
+      /></a>
+      <nav>
+        <ul class="main-nav-list">
+          <li class="main-nav-link">
+            <a class="main-nav-link" href="#">О приложении</a>
+          </li>
+          <li class="main-nav-link">
+            <a class="main-nav-link" href="#">Узнать свою норму</a>
+          </li>
+          <li class="main-nav-link">
+            <a class="main-nav-link" href="#">Категории продуктов</a>
+          </li>
+          <li class="main-nav-link">
+            <a class="main-nav-link" href="#">Мой дневник</a>
+          </li>
+        </ul>
+      </nav>
     </header>
+    <!-- /////////////////////////////////////////////////SECTION ABOUT///////////////////////////////////////////////// -->
+    <!-- /////////////////////////////////////////////////SECTION CAUNT///////////////////////////////////////////////// -->
+    <section class="section-norma" id="form">
+      <div class="container">
+        <div class="norma">
+          <div class="norma-text-box">
+            <h2 class="norma-header">Узнай свою норму каллорий</h2>
+            <p class="norma-description">
+              Знание своей нормы калорий важно для поддержания здорового веса,
+              обеспечения организма необходимой энергией и питательными
+              веществами, а также для предотвращения различных заболеваний. Это
+              помогает планировать рацион питания, контролировать вес и улучшать
+              общее самочувствие.
+            </p>
 
+            <form class="count-your-norm" action="#">
+              <div>
+                <label for="weight">Ваш вес (kg):</label>
+                <input
+                  id="weight"
+                  type="number"
+                  placeholder="введи вес"
+                  required
+                />
+              </div>
+              <div>
+                <label for="height">Ваш рост (cm):</label>
+                <input
+                  type="number"
+                  id="height"
+                  placeholder="введи рост"
+                  required
+                />
+              </div>
+              <div>
+                <label for="age">Ваш возраст:</label>
+                <input
+                  type="number"
+                  id="age"
+                  placeholder="введи возраст"
+                  required
+                />
+              </div>
+              <div>
+                <label for="activity">Суточная активность:</label>
+                <select id="activity" required>
+                  <option value="">Выберете вашу активность</option>
+                  <option value="1.2">
+                    Сидячий (мало или нет физической активности)
+                  </option>
+                  <option value="1.375">
+                    Легкая активность (легкая физическая активность/спорт 1-3
+                    дня в неделю)
+                  </option>
+                  <option value="1.55">
+                    Умеренная активность (средняя физическая активность/спорт
+                    3-5 дней в неделю)
+                  </option>
+                  <option value="1.725">
+                    Очень активный (интенсивная физическая активность/спорт 6-7
+                    дней в неделю)
+                  </option>
+                  <option value="1.9">
+                    Сверхактивный (очень интенсивная физическая активность/спорт
+                    и физическая работа)
+                  </option>
+                </select>
+              </div>
+
+              <button
+                class="btn-count"
+                type="button"
+                onclick="calculateCalories()"
+              >
+                Рассчитать
+              </button>
+
+              <div class="result" id="result"></div>
+            </form>
+          </div>
+          <div
+            class="count-your-norm-img"
+            role="img"
+            aria-label="Woman enjoing food"
+          ></div>
+        </div>
+      </div>
+    </section>
+    <!-- /////////////////////////////////////////////////SECTION CATEGORIES///////////////////////////////////////////////// -->
     <section class="categories">
       <div class="all_categories container">
         <div class="category veggies">
@@ -64,9 +170,29 @@
           <h2>Рыба</h2>
           <select class="select-where" required>
             <option value="0">Выберите продукт</option>
-            <option value="chicken">Лосось</option>
-            <option value="beef">Тунец</option>
-            <option value="pork">Треска</option>
+            <option value="salmon">Лосось</option>
+            <option value="trout">Форель</option>
+            <option value="tuna">Тунец</option>
+          </select>
+          <div class="nutrition_info"></div>
+        </div>
+        <div class="category milk">
+          <h2>Молочные продукты</h2>
+          <select class="select-where" required>
+            <option value="0">Выберите продукт</option>
+            <option value="milk">Молоко</option>
+            <option value="cheese">Сыр</option>
+            <option value="yogurt">Йогурт</option>
+          </select>
+          <div class="nutrition_info"></div>
+        </div>
+        <div class="category dessert">
+          <h2>Сладости</h2>
+          <select class="select-where" required>
+            <option value="0">Выберите продукт</option>
+            <option value="chocolate">Шоколад</option>
+            <option value="cookie">Печенье</option>
+            <option value="ice_cream">Мороженное</option>
           </select>
           <div class="nutrition_info"></div>
         </div>

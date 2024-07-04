@@ -25,8 +25,23 @@ body {
 } */
 
 header {
-  height: 6.8rem;
-  background-color: #60ae64;
+  height: 9.6rem;
+  background-color: #bfdfc1;
+  display: flex;
+  align-items: center;
+  padding: 0 4.8rem;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 6rem;
+}
+
+.main-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 4.8rem;
+  align-items: center;
 }
 
 .container {
@@ -34,12 +49,85 @@ header {
   margin: 0 auto;
   padding: 0 3.2rem;
 }
+/* /////////////////////////////////////////////////////////////РАСЧЕТ ПЕРСОНАЛЬНОЙ НОРМЫ///////////////////////// */
+.section-norma {
+  background-color: aqua;
+  height: 800px;
+  /* top/right/bottom/left */
+  padding: 4.8rem 0 12.8rem 0;
+}
+
+.norma {
+  background-color: black;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.norma-text-box {
+  background-color: rgb(205, 28, 28);
+  padding: 4.8rem 6.4rem 6.4rem 6.4rem;
+}
+.norma-header {
+  color: #45260a;
+  margin-bottom: 3.2rem;
+  font-size: 2.8rem;
+}
+.norma-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.count-your-norm-img {
+  background-image: url("../../public/images/body-2.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.count-your-norm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.2rem;
+  row-gap: 2.4rem;
+}
+
+.count-your-norm label {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+.count-your-norm input,
+.count-your-norm select {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.4rem;
+}
+
+.count-your-norm input::placeholder {
+  color: #aaa;
+}
+
+.count-your-norm *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.8rem rgba(253, 242, 233, 0.5);
+}
+
+.btn-count {
+  background-color: #45260a;
+  color: #fdf2e9;
+  align-self: end;
+  padding: 1.2rem;
+}
+
+/* /////////////////////////////////////////////////////////////КаТЕГОРИИ ПРОДУКТОВ///////////////////////// */
 
 .all_categories {
   display: flex;
   gap: 4.8rem;
   justify-content: center;
-  background-color: rgba(196, 237, 203, 0.973);
+  background-color: rgba(236, 248, 238, 0.973);
   padding-top: 2rem;
   padding-bottom: 2rem;
   flex-wrap: wrap;
@@ -51,51 +139,63 @@ header {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 300px;
-
-  /* position: relative;
-  overflow: hidden; Prevent the pseudo-element from overflowing */
+  height: 150px;
+}
+.category h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 300;
+  font-size: 2.6rem;
+  color: white;
 }
 
 .veggies {
   background-image: url("../../public/images/veggies.jpg");
-  background-size: cover; /* Add these lines to ensure the background covers the element */
-  background-position: center; /* Center the image */
-  /* height: 100px; */
-  color: white; /* Text color for contrast */
-  /* Ensure relative positioning */
+  background-size: cover;
+  background-position: center;
 }
 
 .fruits {
   background-image: url("../../public/images/fruits.jpg");
   background-size: cover;
   background-position: center;
-
-  color: white;
 }
 
 .meet {
   background-image: url("../../public/images/meet.jpg");
   background-size: cover;
   background-position: center;
-
-  color: white;
 }
 
 .fish {
   background-image: url("../../public/images/fish.jpeg");
   background-size: cover;
   background-position: center;
-
-  color: white;
 }
 
-.category h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 400;
-  font-size: 3.2rem;
+.milk {
+  background-image: url("../../public/images/milk.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.dessert {
+  background-image: url("../../public/images/dessert.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 #select-where {
   margin-top: 2;
+}
+
+.nutrition_info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  color: white;
+  margin-top: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 300;
+  font-size: 1.4rem;
 }

@@ -49,7 +49,7 @@ function selectProductClick() {
   } else {
     const nutrition = productCalories[this.value];
     nutritionInfo.innerHTML = `
-        <p>Калории: ${nutrition.calories} ккал</p>
+        <p>Ккал: <br> ${nutrition.calories} ккал</p>
         <p>Белки: ${nutrition.proteins} г</p>
         <p>Жиры: ${nutrition.fats} г</p>
         <p>Углеводы: ${nutrition.carbs} г</p>
