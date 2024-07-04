@@ -81,6 +81,14 @@ header {
   color: white;
 }
 
+.fish {
+  background-image: url("../../public/images/fish.jpeg");
+  background-size: cover;
+  background-position: center;
+
+  color: white;
+}
+
 .category h2 {
   margin-top: 0;
   margin-bottom: 1rem;

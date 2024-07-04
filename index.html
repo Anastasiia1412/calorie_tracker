@@ -8,7 +8,7 @@
     <link rel="icon" href="public/favicon/favicon.png" />
     <link rel="apple-touch-icon" href="public/apple-touch-icon.png" />
     <!-- файл для андройда для распознования иконок -->
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="manifest" href="manifest.webmanifest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,58 +18,59 @@
     />
 
     <link rel="stylesheet" href="src/css/style.css" />
-    <script defer src="src/js/main.js"></script>
+    <script type="module" defer src="src/js/main.js"></script>
+
     <title>NutriTrack</title>
   </head>
   <body>
     <header>
+      <a href="#"> <img src=" " class="logo" alt="Omnifood" /></a>
       <p>NutriTrack</p>
     </header>
 
-    <div class="all_categories container">
-      <div class="category veggies">
-        <h2>Овощи</h2>
-        <select id="select-where" required>
-          <option value="0">Выберите продукт</option>
-          <option value="broccoli">Брокколи</option>
-          <option value="carrot">Морковь</option>
-          <option value="pepper">Перец</option>
-        </select>
-        <div class="nutrition-info"></div>
+    <section class="categories">
+      <div class="all_categories container">
+        <div class="category veggies">
+          <h2>Овощи</h2>
+          <select class="select-where" required>
+            <option value="0">Выберите продукт</option>
+            <option value="broccoli">Брокколи</option>
+            <option value="carrot">Морковь</option>
+            <option value="pepper">Перец</option>
+          </select>
+          <div class="nutrition_info"></div>
+        </div>
+        <div class="category fruits">
+          <h2>Фрукты</h2>
+          <select class="select-where" required>
+            <option value="0">Выберите продукт</option>
+            <option value="apple">яблоко</option>
+            <option value="banana">банан</option>
+            <option value="orange">апельсин</option>
+          </select>
+          <div class="nutrition_info"></div>
+        </div>
+        <div class="category meet">
+          <h2>Мясо</h2>
+          <select class="select-where" required>
+            <option value="0">Выберите продукт</option>
+            <option value="chicken">Курица</option>
+            <option value="beef">Говядина</option>
+            <option value="pork">Свинина</option>
+          </select>
+          <div class="nutrition_info"></div>
+        </div>
+        <div class="category fish">
+          <h2>Рыба</h2>
+          <select class="select-where" required>
+            <option value="0">Выберите продукт</option>
+            <option value="chicken">Лосось</option>
+            <option value="beef">Тунец</option>
+            <option value="pork">Треска</option>
+          </select>
+          <div class="nutrition_info"></div>
+        </div>
       </div>
-
-      <div class="category fruits">
-        <h2>Фрукты</h2>
-        <select id="select-where" required>
-          <option value="0">Выберите продукт</option>
-          <option value="apple">яблоко</option>
-          <option value="banana">банан</option>
-          <option value="orange">апельсин</option>
-        </select>
-        <div class="nutrition-info"></div>
-      </div>
-
-      <div class="category meet">
-        <h2>Мясо</h2>
-        <select id="select-where" required>
-          <option value="0">Выберите продукт</option>
-          <option value="chicken">Курица</option>
-          <option value="beef">Говядина</option>
-          <option value="pork">Свинина</option>
-        </select>
-        <div class="nutrition-info"></div>
-      </div>
-
-      <div class="category meet">
-        <h2>Мясо</h2>
-        <select id="select-where" required>
-          <option value="0">Выберите продукт</option>
-          <option value="chicken">Курица</option>
-          <option value="beef">Говядина</option>
-          <option value="pork">Свинина</option>
-        </select>
-        <div class="nutrition-info"></div>
-      </div>
-    </div>
+    </section>
   </body>
 </html>
