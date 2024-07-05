@@ -121,7 +121,13 @@ header {
   padding: 1.2rem;
 }
 
-/* /////////////////////////////////////////////////////////////КаТЕГОРИИ ПРОДУКТОВ///////////////////////// */
+.result {
+  font-size: 2rem;
+  color: #45260a;
+  font-weight: bold;
+}
+
+/* /////////////////////////////////////////////////////////////КАТЕГОРИИ ПРОДУКТОВ///////////////////////// */
 
 .all_categories {
   display: flex;
@@ -198,4 +204,78 @@ header {
   margin-bottom: 1rem;
   font-weight: 300;
   font-size: 1.4rem;
+}
+
+/* /////////////////////////////////////////////////////////////О РЕСУРСЕ///////////////////////// */
+.section-about {
+  background-color: #dfefe0;
+  padding: 4.8rem 0 9.6rem 0;
+}
+
+.about {
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.apple-img {
+  width: 100%;
+}
+
+.about-details {
+  max-width: 130rem;
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4rem;
+  padding: 0 3.2rem;
+  margin: 0 auto;
+}
+.about-header {
+  font-weight: 700;
+  color: #264628;
+  letter-spacing: -0.5px;
+  font-size: 5.2rem;
+}
+.about-description {
+  font-size: 2rem;
+  line-height: 1.6;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
+}
+
+.about-text-detiels {
+  display: flex;
+  justify-content: left;
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.header-about-text-detiels {
+  font-weight: 700;
+  color: #264628;
+  letter-spacing: -0.5px;
+  font-size: 4rem;
+}
+.subheadder-about-details {
+  font-weight: 600;
+  color: #264628;
+  letter-spacing: -0.5px;
+  font-size: 2.5rem;
+}
+.detail-description {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  font-size: 2rem;
+  line-height: 1.6;
+  border: 1px solid #ccc;
+  align-items: center; /* Выравнивание по вертикали */
+  /* Выравнивание по горизонтали */
 }

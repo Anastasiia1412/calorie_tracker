@@ -62,10 +62,10 @@ startCalculateCalories.addEventListener('click', calculateCalories)
 
 
 function calculateCalories() {
-  let weight = document.getElementById('weight').value
-  let height = document.getElementById('height').value
-  let age = document.getElementById('age').value
-  let activity = document.getElementById('activity').value
+  const weight = document.getElementById('weight').value
+  const height = document.getElementById('height').value
+  const age = document.getElementById('age').value
+  const activity = document.getElementById('activity').value
 
   if (!weight || !height || !age || !activity) {
     alert('Please fill in all fields');
@@ -77,7 +77,7 @@ function calculateCalories() {
   const calories = bmr * activity;
 
   document.getElementById('result').innerHTML = `Ваша ежедневная норма составляет: ${Math.round(calories)} calories`
-  console.log(calories);
+  console.log(Math.round(calories));
 
 }
 
