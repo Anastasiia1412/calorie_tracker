@@ -24,14 +24,14 @@
   </head>
   <body>
     <!-- /////////////////////////////////////////////////HEADER///////////////////////////////////////////////// -->
-    <header>
+    <header class="sticky">
       <a href="#">
         <img src="public/images/Nutri-logo.png" class="logo" alt="NutriTrack"
       /></a>
       <nav>
         <ul class="main-nav-list">
           <li class="main-nav-link">
-            <a class="main-nav-link" href="#">О приложении</a>
+            <a class="main-nav-link" href="#section-about">О приложении</a>
           </li>
           <li class="main-nav-link">
             <a class="main-nav-link" href="#form">Узнать свою норму</a>
@@ -79,16 +79,35 @@
       </div>
       <div class="about-details">
         <div>
-          <h3 class="subheadder-about-details">Подсчет калорий</h3>
+          <div class="about-details-subheader-icon">
+            <ion-icon
+              class="main-icons"
+              name="add-circle-outline"
+              size="large"
+            ></ion-icon>
+            <h3 class="subheadder-about-details">Подсчет калорий</h3>
+          </div>
           <p class="detail-description">
             В NutriTrack вы сможете легко и быстро рассчитывать суточное
             потребление калорий, чтобы точно знать, сколько энергии вам нужно
             для достижения ваших целей – будь то похудение, поддержание текущего
             веса или набор мышечной массы.
           </p>
+          <img
+            class="main-img"
+            src="./public/images/main1.jpg"
+            alt="calculate calories"
+          />
         </div>
         <div>
-          <h3 class="subheadder-about-details">Ведение дневника питания</h3>
+          <div class="about-details-subheader-icon">
+            <ion-icon
+              class="main-icons"
+              name="add-circle-outline"
+              size="large"
+            ></ion-icon>
+            <h3 class="subheadder-about-details">Ведение дневника питания</h3>
+          </div>
           <p class="detail-description">
             Забудьте о бумажных записках и сложных таблицах! С нашим
             онлайн-дневником питания вы сможете записывать каждый прием пищи,
@@ -96,9 +115,21 @@
             вам лучше понимать свои пищевые привычки и вносить необходимые
             коррективы.
           </p>
+          <img
+            class="main-img"
+            src="./public/images/main2.jpg"
+            alt="calories dairy"
+          />
         </div>
-        <div class="">
-          <h3 class="subheadder-about-details">Отслеживание прогресса</h3>
+        <div>
+          <div class="about-details-subheader-icon">
+            <ion-icon
+              class="main-icons"
+              name="add-circle-outline"
+              size="large"
+            ></ion-icon>
+            <h3 class="subheadder-about-details">Отслеживание прогресса</h3>
+          </div>
           <p class="detail-description">
             Регулярное отслеживание вашего прогресса – ключ к успеху. В
             NutriTrack вы найдете удобные графики и отчеты, которые наглядно
@@ -106,6 +137,11 @@
             здоровья с течением времени. Мотивация будет всегда на высоком
             уровне!
           </p>
+          <img
+            class="main-img"
+            src="./public/images/main-4.jpeg"
+            alt="progress"
+          />
         </div>
       </div>
     </section>
@@ -125,7 +161,7 @@
 
             <form class="count-your-norm" action="#">
               <div>
-                <label for="weight">Ваш вес (kg):</label>
+                <label for="weight">Ваш вес (кг):</label>
                 <input
                   id="weight"
                   type="number"
@@ -134,7 +170,7 @@
                 />
               </div>
               <div>
-                <label for="height">Ваш рост (cm):</label>
+                <label for="height">Ваш рост (см):</label>
                 <input
                   type="number"
                   id="height"
@@ -143,7 +179,7 @@
                 />
               </div>
               <div>
-                <label for="age">Ваш возраст:</label>
+                <label for="age">Ваш возраст (лет):</label>
                 <input
                   type="number"
                   id="age"
@@ -192,6 +228,45 @@
         </div>
       </div>
     </section>
+
+    <!-- /////////////////////////////////////////////////SECTION REGISTRATION///////////////////////////////////////////////// -->
+    <section class="section-registr">
+      <div class="registration">
+        <div class="registr-form">
+          <div class="benefits-registr">
+            <p class="registr-description">
+              Мы рады, что вы используете наш калькулятор калорий для
+              поддержания здорового образа жизни. Чтобы получить еще больше
+              возможностей и инструментов для достижения ваших целей, предлагаем
+              зарегистрироваться на нашем сервисе.
+            </p>
+          </div>
+          <form action="#">
+            <div>
+              <label for="weight">Имя</label>
+              <input id="name" type="text" placeholder="введте имя" required />
+            </div>
+            <div>
+              <label for="weight">Почта</label>
+              <input
+                id="email"
+                type="text"
+                placeholder="введте вашу почту"
+                required
+              />
+            </div>
+            <button id="sigh-in" class="btn-sigh-in" type="button">
+              Войти
+            </button>
+            <button id="sigh-up" class="btn-sigh-up" type="button">
+              Регистрация
+            </button>
+            <h2>Преимущества регистрации:</h2>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <!-- /////////////////////////////////////////////////SECTION CATEGORIES///////////////////////////////////////////////// -->
     <section class="categories" id="all-products">
       <div class="all_categories container">
@@ -257,5 +332,13 @@
         </div>
       </div>
     </section>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>
