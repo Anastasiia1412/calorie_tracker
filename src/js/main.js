@@ -89,7 +89,7 @@ function calculateCalories() {
 
 
 // Sign in with email and password
-function SignIn(email, password) {
+function SignIn() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
@@ -100,12 +100,14 @@ function SignIn(email, password) {
       console.log(user.uid) // Redirect to signed-in page
     })
     .catch((error) => {
-      errorMessage.textContent = error.message;
+      console.log(error.message);
     });
 }
 
+
+
 // Sign up with email and password
-function SignUp(email, password) {
+function SignUp() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
@@ -116,8 +118,19 @@ function SignUp(email, password) {
       console.log(user.uid); // Redirect to signed-in page
     })
     .catch((error) => {
-      errorMessage.textContent = error.message;
+      console.log(error.message);
     });
 }
 
 //авторизация
+const signInButton = document.getElementById('sigh-in')
+signInButton.addEventListener('click', SignIn)
+
+const signUpButton = document.getElementById('sigh-up')
+signInButton.addEventListener('click', SignUp)
+
+
+
+
+
+

@@ -138,11 +138,18 @@ header {
 }
 
 .btn-count {
-  background-color: #45260a;
+  background-color: #264628;
   color: #fdf2e9;
   align-self: end;
   padding: 1.2rem;
   font-size: 2rem;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.btn-count:hover,
+.btn-count:active {
+  background-color: #3a683c;
 }
 
 .result {
@@ -358,6 +365,7 @@ header {
 .registr-email input {
   width: 100%;
   height: 40px;
+  border-radius: 10px;
 }
 .registr-password input::placeholder {
   color: #aaa;
@@ -368,14 +376,26 @@ header {
   color: #aaa;
   font-size: 2rem;
   padding-left: 2rem;
+  border-radius: 10px;
 }
 .btn-sigh-in,
 .btn-sigh-up {
-  background-color: #45260a;
+  background-color: #264628;
   color: #fdf2e9;
   /* align-self: end; */
   padding: 1rem;
   font-size: 1.8rem;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.btn-sigh-in:hover,
+.btn-sigh-in:active {
+  background-color: #3a683c;
+}
+.btn-sigh-up:hover,
+.btn-sigh-up:active {
+  background-color: #3a683c;
 }
 
 .benefits-registr {
