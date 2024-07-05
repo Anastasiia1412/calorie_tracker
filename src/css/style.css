@@ -31,8 +31,28 @@ header {
   align-items: center;
   padding: 0 4.8rem;
   justify-content: space-between;
+  /* Because we want header to be sticky later */
+  /* position: relative; */
+}
+/* STICKY NAVIGATION залипающий хедер */
+/* .sticky .header {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 8rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(255, 255, 255, 0.97);
+  z-index: 999;
+  box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
 }
 
+.section-about {
+  background-color: #fdf2e9;
+  /*tint and shade generator
+  padding: 4.8rem 0 9.6rem 0;
+}*/
 .logo {
   height: 6rem;
 }
@@ -51,7 +71,7 @@ header {
 }
 /* /////////////////////////////////////////////////////////////РАСЧЕТ ПЕРСОНАЛЬНОЙ НОРМЫ///////////////////////// */
 .section-norma {
-  background-color: aqua;
+  background-color: #eff7f0;
   height: 800px;
   /* top/right/bottom/left */
   padding: 4.8rem 0 12.8rem 0;
@@ -59,24 +79,25 @@ header {
 
 .norma {
   background-color: black;
-
+  margin-top: 4rem;
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
 
 .norma-text-box {
-  background-color: rgb(205, 28, 28);
+  background-color: #80be83;
   padding: 4.8rem 6.4rem 6.4rem 6.4rem;
 }
 .norma-header {
-  color: #45260a;
+  color: #fff;
   margin-bottom: 3.2rem;
-  font-size: 2.8rem;
+  font-size: 3rem;
 }
 .norma-description {
-  font-size: 1.8rem;
+  font-size: 2rem;
   line-height: 1.8;
   margin-bottom: 3rem;
+  color: #fff;
 }
 
 .count-your-norm-img {
@@ -94,15 +115,17 @@ header {
 
 .count-your-norm label {
   display: block;
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 500;
   margin-bottom: 1.2rem;
+  color: #0a110a;
 }
 .count-your-norm input,
 .count-your-norm select {
   width: 100%;
   padding: 1.2rem;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
+  border-radius: 10px;
 }
 
 .count-your-norm input::placeholder {
@@ -119,12 +142,16 @@ header {
   color: #fdf2e9;
   align-self: end;
   padding: 1.2rem;
+  font-size: 2rem;
 }
 
 .result {
   font-size: 2rem;
-  color: #45260a;
-  font-weight: bold;
+  color: #fff;
+  /* font-weight: bold; */
+  /* border: 2px solid #000; */
+  padding: 1rem;
+  /* background-color: #45260a; */
 }
 
 /* /////////////////////////////////////////////////////////////КАТЕГОРИИ ПРОДУКТОВ///////////////////////// */
@@ -206,7 +233,7 @@ header {
   font-size: 1.4rem;
 }
 
-/* /////////////////////////////////////////////////////////////О РЕСУРСЕ///////////////////////// */
+/* /////////////////////////////////////////////////////////////О РЕСУРСЕ/ABOUT ///////////////////////// */
 .section-about {
   background-color: #dfefe0;
   padding: 4.8rem 0 9.6rem 0;
@@ -224,11 +251,13 @@ header {
 
 .apple-img {
   width: 100%;
+  border-radius: 20px;
 }
 
 .about-details {
   max-width: 130rem;
   align-items: stretch;
+  /* выравнивание внутри сетри по верхнему краю */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 4rem;
@@ -275,7 +304,32 @@ header {
   margin-top: 3rem;
   font-size: 2rem;
   line-height: 1.6;
-  border: 1px solid #ccc;
-  align-items: center; /* Выравнивание по вертикали */
-  /* Выравнивание по горизонтали */
+}
+.main-img {
+  width: 100%;
+  border-radius: 20px;
+}
+.about-details-subheader-icon {
+  display: flex;
+  align-items: center;
+}
+
+.main-icons {
+  margin-right: 5px;
+}
+/* ////////////////////////////////////////////////////////////РЕГИСТРАЦИЯ////////////////////////////////////////////*/
+.section-registr {
+  background-color: #dfefe0;
+  padding: 4.8rem 0 9.6rem 0;
+}
+.registration {
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+}
+.registr-description {
+  font-size: 2rem;
+  line-height: 1.6;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
 }
