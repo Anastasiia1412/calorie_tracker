@@ -3,6 +3,9 @@ console.log('hello world');
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getDatabase, ref, child, get } from "firebase/database";
+// подключение аутентификации через файрбейс
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+
 // параметры подключения к базе данных через переменные окружения
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -19,6 +22,8 @@ const app = initializeApp(firebaseConfig);
 const realtime_database = getDatabase(app);
 
 const dbRef = ref(realtime_database);
+// добавление модуля авторизации
+const auth = getAuth(app)
 
 let productCalories = {};
 
@@ -81,3 +86,38 @@ function calculateCalories() {
 
 }
 
+
+
+// Sign in with email and password
+function SignIn(email, password) {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      console.log(user.uid) // Redirect to signed-in page
+    })
+    .catch((error) => {
+      errorMessage.textContent = error.message;
+    });
+}
+
+// Sign up with email and password
+function SignUp(email, password) {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed up and signed in
+      const user = userCredential.user;
+      console.log(user.uid); // Redirect to signed-in page
+    })
+    .catch((error) => {
+      errorMessage.textContent = error.message;
+    });
+}
+
+//авторизация

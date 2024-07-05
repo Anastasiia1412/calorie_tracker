@@ -232,37 +232,70 @@
     <!-- /////////////////////////////////////////////////SECTION REGISTRATION///////////////////////////////////////////////// -->
     <section class="section-registr">
       <div class="registration">
+        <p class="registr-description">
+          Мы рады, что вы используете наш калькулятор калорий для поддержания
+          здорового образа жизни. Чтобы получить еще больше возможностей и
+          инструментов для достижения ваших целей, предлагаем зарегистрироваться
+          на нашем сервисе.
+        </p>
+
         <div class="registr-form">
-          <div class="benefits-registr">
-            <p class="registr-description">
-              Мы рады, что вы используете наш калькулятор калорий для
-              поддержания здорового образа жизни. Чтобы получить еще больше
-              возможностей и инструментов для достижения ваших целей, предлагаем
-              зарегистрироваться на нашем сервисе.
-            </p>
-          </div>
-          <form action="#">
-            <div>
-              <label for="weight">Имя</label>
-              <input id="name" type="text" placeholder="введте имя" required />
-            </div>
-            <div>
-              <label for="weight">Почта</label>
-              <input
-                id="email"
-                type="text"
-                placeholder="введте вашу почту"
-                required
-              />
-            </div>
-            <button id="sigh-in" class="btn-sigh-in" type="button">
-              Войти
-            </button>
-            <button id="sigh-up" class="btn-sigh-up" type="button">
-              Регистрация
-            </button>
-            <h2>Преимущества регистрации:</h2>
+          <form class="registr-email" action="#">
+            <label for="email">Почта</label>
+            <input
+              id="email"
+              type="text"
+              placeholder="введите почту"
+              required
+              style="width: 300px"
+              style="height: 40px"
+            />
           </form>
+
+          <form class="registr-password" action="">
+            <label for="password">Пароль</label>
+            <input
+              id="password"
+              type="text"
+              placeholder="введите пароль"
+              required
+              style="width: 200px"
+              style="height: 100px"
+            />
+          </form>
+
+          <button id="sigh-in" class="btn-sigh-in" type="button">Войти</button>
+          <button id="sigh-up" class="btn-sigh-up" type="button">
+            Регистрация
+          </button>
+        </div>
+
+        <div class="benefits-registr">
+          <h2 class="registr-header">Что вы получите с регистрацией:</h2>
+          <div class="registr-benefis-list">
+            <ul class="registr-list">
+              <li class="registr-list-item">
+                Личный дневник питания для точного учета всех приемов пищи.
+              </li>
+              <li class="registr-list-item">
+                Возможность отслеживания веса и физической активности.
+              </li>
+              <li class="registr-list-item">
+                Индивидуальные рекомендации по питанию и тренировкам.
+              </li>
+              <li class="registr-list-item">
+                Графики и отчеты для визуализации вашего прогресса.
+              </li>
+              <li class="registr-list-item">
+                Доступ к сообществу для обмена опытом и получения поддержки.
+              </li>
+            </ul>
+          </div>
+          <p class="registr-description">
+            Регистрация займет всего минуту и откроет для вас все возможности
+            нашего сервиса. Начните свой путь к здоровому и сбалансированному
+            образу жизни вместе с NutriTrack!
+          </p>
         </div>
       </div>
     </section>
