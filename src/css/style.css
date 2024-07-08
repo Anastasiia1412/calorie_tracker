@@ -180,7 +180,7 @@ header {
   margin-top: 9.6rem;
 }
 
-.all_categories p {
+.all_categories_description {
   color: #264628;
   margin-bottom: 3rem;
   margin-top: 3rem;
@@ -209,6 +209,16 @@ header {
   color: white;
 }
 
+.nutrition_info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  color: white;
+  margin-top: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  font-size: 2rem;
+}
 .veggies {
   background-image: url("../../public/images/veggies.jpg");
   background-size: cover;
@@ -247,17 +257,6 @@ header {
 
 #select-where {
   margin-top: 2;
-}
-
-.nutrition_info {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  color: white;
-  margin-top: 1.2rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-  font-size: 2rem;
 }
 
 /* /////////////////////////////////////////////////////////////О РЕСУРСЕ/ABOUT ///////////////////////// */
