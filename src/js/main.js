@@ -26,14 +26,28 @@ const dbRef = ref(realtime_database);
 const auth = getAuth(app)
 
 let productCalories = {};
+let myCategories = {};
+
+
+get(child(dbRef, `/categories`))
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+      myCategories = snapshot.val();
+      generateDivs();
+    } else {
+      console.log("No data available");
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 get(child(dbRef, `/products`))
   .then((snapshot) => {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       productCalories = snapshot.val();
-      myCategories = snapshot.val();
-      generateDivs();
     } else {
       console.log("No data available");
     }
@@ -47,6 +61,23 @@ listOfCategories.forEach((category) => {
   category.addEventListener('change', selectProductClick)
 })
 
+function selectProductClickNew() {
+  const splitValues = this.value.split("|")
+  const chozenCategory = splitValues[0]
+  const chozenProduct = splitValues[1]
+  const nutritionInfo = document.getElementById('nutrition_info_' + chozenCategory)
+  if (this.value === "0") {
+    nutritionInfo.innerHTML = "";
+  } else {
+    const nutrition = myCategories[chozenCategory]['products'][chozenProduct];
+    nutritionInfo.innerHTML = `
+        <p>Ккал: <br> ${nutrition.calories} ккал</p>
+        <p>Белки: ${nutrition.proteins} г</p>
+        <p>Жиры: ${nutrition.fats} г</p>
+        <p>Углеводы: ${nutrition.carbs} г</p>
+    `;
+  }
+}
 function selectProductClick() {
   console.log(productCalories[this.value]);
   const nutritionInfo = this.nextElementSibling;
@@ -135,26 +166,58 @@ signInButton.addEventListener('click', SignUp)
 
 function generateDivs() {
   const container = document.getElementById("my_categories");
-  for (const [key, value] of Object.entries(myCategories))
+  for (const [key, value] of Object.entries(myCategories)) {
     console.log(key, value);
+    //созщдаем div контейнер
+    const div_container = document.createElement("div");
+    div_container.className = 'category product_image_style'
+    div_container.style = 'background-image: url(\"' + value['img'] + '\")'
 
-  //созщдаем div контейнер
-  const div_container = document.createElement("div");
-  div_container.className = 'div_container' + key
+    //header
+    const header = document.createElement('h2')
+    header.textContent = key
 
-  //наполняем дим контейнер кнопкой
-  const button = document.createElement("button");
-  button.className = "button_" + key;
-  button.textContent = "Продукт базы: " + key;
-  button.addEventListener("click", function (btn) {
-    console.log("Нажат продукт " + this.className);
-  });
-  //наполняем див конейтер изображением из базы даннызх
-  const img = document.createElement("img");
-  img.src = value['img']
-  div_container.appendChild(button)
-  div_container.appendChild(img)
-  container.appendChild(div_container);
+    //selector
+    const selector = document.createElement('select')
+    selector.className = 'select-where'
+    selector.options.add(new Option('Выберите продукт', '0'))
+    for (const [product_key, product_value] of Object.entries(value.products)) {
+      console.log(product_value)
+      selector.options.add(new Option(product_key, key + "|" + product_key))
+    }
+    selector.addEventListener('change', selectProductClickNew)
+
+    //nutritients
+    const nutrition_info_div = document.createElement("div");
+    nutrition_info_div.className = 'nutrition_info'
+    nutrition_info_div.id = 'nutrition_info_' + key
+
+
+
+    // div_container.appendChild(button)
+    div_container.appendChild(header)
+    div_container.appendChild(selector)
+    div_container.appendChild(nutrition_info_div)
+    // div_container.appendChild(img)
+    container.appendChild(div_container);
+
+
+
+    //   <div class="category veggies">
+    //   <h2>Овощи</h2>
+    //   <select class="select-where" required>
+    //     <option value="0">Выберите продукт</option>
+    //     <option value="broccoli">Брокколи</option>
+    //     <option value="carrot">Морковь</option>
+    //     <option value="pepper">Перец</option>
+    //   </select>
+    //   <div class="nutrition_info"></div>
+    // </div>
+
+  }
+
+
+
 }
 // generateDivs()
 // document.addEventListener("DOMContentLoaded", function () {

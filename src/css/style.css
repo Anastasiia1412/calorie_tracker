@@ -206,7 +206,7 @@ header {
   margin-bottom: 1rem;
   font-weight: 300;
   font-size: 2.6rem;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .nutrition_info {
@@ -219,6 +219,12 @@ header {
   font-weight: 500;
   font-size: 2rem;
 }
+
+.product_image_style {
+  background-size: cover;
+  background-position: center;
+}
+
 .veggies {
   background-image: url("../../public/images/veggies.jpg");
   background-size: cover;
