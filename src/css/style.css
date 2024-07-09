@@ -63,6 +63,38 @@ header {
   gap: 4.8rem;
   align-items: center;
 }
+.main-nav-link,
+.main-nav-link-sign-in,
+.main-nav-link-registr {
+  text-decoration: none;
+  display: inline-block;
+  color: #264628;
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+  padding: 20px;
+}
+
+.main-nav-link:hover,
+.main-nav-link:active {
+  color: #3a683c;
+  background-color: #dfefe0;
+  border-radius: 10px;
+}
+
+.main-nav-link-sign-in:hover,
+.main-nav-link-sign-in:active {
+  text-decoration: none;
+  background-color: #dfefe0;
+  border-radius: 10px;
+}
+
+.main-nav-link-registr:hover,
+.main-nav-link-registr:active {
+  text-decoration: none;
+  background-color: #dfefe0;
+  border-radius: 10px;
+}
 
 .container {
   max-width: 120rem;
