@@ -148,6 +148,7 @@ function selectProductClick() {
   }
 }
 
+
 const startCalculateCalories = document.getElementById('btn-count-calories');
 startCalculateCalories.addEventListener('click', calculateCalories)
 
@@ -245,6 +246,7 @@ function generateDivs() {
     const consumptionInput = document.createElement('input')
     consumptionInput.id = "input|" + key
     consumptionInput.value = 100
+    consumptionInput.className = 'input-grams'
     consumptionInput.addEventListener('change', chageConsumption)
 
     //nutritients
@@ -254,8 +256,9 @@ function generateDivs() {
 
     //add button
     const add_button = document.createElement('button')
-    add_button.textContent = 'add'
+    add_button.textContent = 'добавить в отчет'
     add_button.id = 'add_button|' + key
+    add_button.className = 'add-button'
     add_button.addEventListener('click', addButtonEvent)
 
 
