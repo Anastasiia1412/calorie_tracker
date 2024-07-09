@@ -28,6 +28,10 @@ const auth = getAuth(app)
 let productCalories = {};
 let myCategories = {};
 
+//текущее потребление пользователя (добавить другие параметры)
+let consumedCalories = 0.0;
+let consumedProteins = 0.0;
+
 
 get(child(dbRef, `/categories`))
   .then((snapshot) => {
@@ -61,22 +65,71 @@ listOfCategories.forEach((category) => {
   category.addEventListener('change', selectProductClick)
 })
 
-function selectProductClickNew() {
-  const splitValues = this.value.split("|")
-  const chozenCategory = splitValues[0]
-  const chozenProduct = splitValues[1]
-  const nutritionInfo = document.getElementById('nutrition_info_' + chozenCategory)
-  if (this.value === "0") {
+//вспомогательная функция для определения выбранного продутка в определенной категории
+function getSelectedItemPerCategory(category) {
+  const tmp = document.getElementById('select|' + category).value
+  const res = tmp.split("|")[1]
+  return res
+}
+
+//Вспомогательная функция для определения выбранной категории на основе id  элемента
+function getSelectedCategory(id) {
+  return id.split("|")[1]
+}
+
+//вспомогательная функция для определения потребленных значений выбранного продукта на основе id элемента
+function getConsumedValue(id) {
+  return Number(document.getElementById('input|' + getSelectedCategory(id)).value)
+}
+
+//функция обновления информации о текущем продутке с учетом заданного потребления
+function updateConsumedInfo(categoryName, productName) {
+  console.log(categoryName)
+  console.log(productName)
+  let nutritionInfo = document.getElementById('nutrition_info|' + categoryName)
+  const consumedInput = Number(document.getElementById('input|' + categoryName).value)
+  if (productName === "0") {
     nutritionInfo.innerHTML = "";
   } else {
-    const nutrition = myCategories[chozenCategory]['products'][chozenProduct];
+    const nutrition = myCategories[categoryName]['products'][productName];
     nutritionInfo.innerHTML = `
-        <p>Ккал: <br> ${nutrition.calories} ккал</p>
-        <p>Белки: ${nutrition.proteins} г</p>
-        <p>Жиры: ${nutrition.fats} г</p>
-        <p>Углеводы: ${nutrition.carbs} г</p>
+        <p>Ккал: <br> ${Math.round(nutrition.calories / 100 * consumedInput, 2)} ккал</p>
+        <p>Белки: ${Math.round(nutrition.proteins / 100 * consumedInput, 2)} г</p>
+        <p>Жиры: ${Math.round(nutrition.fats / 100 * consumedInput, 2)} г</p>
+        <p>Углеводы: ${Math.round(nutrition.carbs / 100 * consumedInput, 2)} г</p>
     `;
   }
+}
+
+//обработчик изменения потребления пользователя
+function chageConsumption() {
+  const chozenCategory = getSelectedCategory(this.id)
+  const chozenProduct = getSelectedItemPerCategory(chozenCategory)
+  updateConsumedInfo(chozenCategory, chozenProduct)
+}
+//обработчик нажатия кнопки добавления текущего потребления соответствующей категории
+function addButtonEvent() {
+  const chozenCategory = getSelectedCategory(this.id)
+  const chozenProduct = getSelectedItemPerCategory(chozenCategory)
+  const consumed = getConsumedValue(this.id)
+  if (chozenProduct != undefined) {
+    console.log(consumed)
+    console.log(chozenCategory)
+    console.log(chozenProduct)
+    const nutrition = myCategories[chozenCategory]['products'][chozenProduct];
+    consumedCalories = consumedCalories + Number(nutrition.calories / 100 * consumed)
+    consumedProteins = consumedProteins + Number(nutrition.proteins / 100 * consumed)
+    const str = `calories = ${consumedCalories}; proteins = ${consumedProteins}.`
+    console.log(str)
+  }
+
+}
+
+function selectProductClickNew() {
+  const chozenCategory = getSelectedCategory(this.id)
+  const chozenProduct = getSelectedItemPerCategory(chozenCategory)
+
+  updateConsumedInfo(chozenCategory, chozenProduct)
 }
 function selectProductClick() {
   console.log(productCalories[this.value]);
@@ -180,6 +233,7 @@ function generateDivs() {
     //selector
     const selector = document.createElement('select')
     selector.className = 'select-where'
+    selector.id = 'select|' + key
     selector.options.add(new Option('Выберите продукт', '0'))
     for (const [product_key, product_value] of Object.entries(value.products)) {
       console.log(product_value)
@@ -187,17 +241,32 @@ function generateDivs() {
     }
     selector.addEventListener('change', selectProductClickNew)
 
+    //consumtion input
+    const consumptionInput = document.createElement('input')
+    consumptionInput.id = "input|" + key
+    consumptionInput.value = 100
+    consumptionInput.addEventListener('change', chageConsumption)
+
     //nutritients
     const nutrition_info_div = document.createElement("div");
     nutrition_info_div.className = 'nutrition_info'
-    nutrition_info_div.id = 'nutrition_info_' + key
+    nutrition_info_div.id = 'nutrition_info|' + key
+
+    //add button
+    const add_button = document.createElement('button')
+    add_button.textContent = 'add'
+    add_button.id = 'add_button|' + key
+    add_button.addEventListener('click', addButtonEvent)
+
 
 
 
     // div_container.appendChild(button)
     div_container.appendChild(header)
     div_container.appendChild(selector)
+    div_container.appendChild(consumptionInput)
     div_container.appendChild(nutrition_info_div)
+    div_container.appendChild(add_button)
     // div_container.appendChild(img)
     container.appendChild(div_container);
 
