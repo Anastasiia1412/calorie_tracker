@@ -26,7 +26,7 @@ const dbRef = ref(realtime_database);
 const auth = getAuth(app)
 
 let productCalories = {};
-let myCategories = {};
+let myCategories = {}; //изначально словарь пустой
 
 //текущее потребление пользователя (добавить другие параметры)
 let consumedCalories = 0.0;
@@ -37,8 +37,8 @@ get(child(dbRef, `/categories`))
   .then((snapshot) => {
     if (snapshot.exists()) {
       console.log(snapshot.val());
-      myCategories = snapshot.val();
-      generateDivs();
+      myCategories = snapshot.val(); //значению myCategories присвивается текущее состояние словаря
+      generateDivs(); //после запускается функция создания общего дива для всех блоков категорий
     } else {
       console.log("No data available");
     }
@@ -60,12 +60,81 @@ get(child(dbRef, `/products`))
     console.error(error);
   });
 
-const listOfCategories = document.querySelectorAll('.select-where');
-listOfCategories.forEach((category) => {
-  category.addEventListener('change', selectProductClick)
-})
+// const listOfCategories = document.querySelectorAll('.select-where');
+// listOfCategories.forEach((category) => {
+//   category.addEventListener('change', selectProductClick)
+// })
+
+
+//динамические объекты
+
+function generateDivs() { //функция для создания основного дива id=my_categories;
+  const container = document.getElementById("my_categories"); //див my_categories прописан в HTML но пустой. Присаиваем этот див переменнойconst container;
+  for (const [key, value] of Object.entries(myCategories)) { //Object.entries(myCategories) вход в "полученный словарь"
+    // console.log(key, value);
+
+    //созщдаем div контейнер
+    const div_container = document.createElement("div");
+    div_container.className = 'category product_image_style'
+    div_container.style = `background-image: url("${value.img}")`//берем значение img в словаре value
+
+    //header
+    const header = document.createElement('h2')
+    header.textContent = key
+
+    //selector
+    const selector = document.createElement('select')
+    selector.className = 'select-where'
+    selector.id = 'select|' + key
+    selector.options.add(new Option('Выберите продукт', '0'))
+    for (const [product_key, product_value] of Object.entries(value.products)) {
+      console.log(product_value)
+      selector.options.add(new Option(product_key, key + "|" + product_key))
+      // (product_key, key + "|" + product_key) ---> (key + "|" + product_key - значение value) а (product_key, - то что написано между треугольными скобками)
+    }
+    selector.addEventListener('change', selectProductClickNew)
+
+    //consumtion input
+    const consumptionInput = document.createElement('input')
+    consumptionInput.id = "input|" + key
+    consumptionInput.value = 100
+    consumptionInput.className = 'input-grams'
+    consumptionInput.addEventListener('change', chageConsumption)
+
+    //nutritients
+    const nutrition_info_div = document.createElement("div");
+    nutrition_info_div.className = 'nutrition_info'
+    nutrition_info_div.id = 'nutrition_info|' + key
+
+    //add button
+    const add_button = document.createElement('button')
+    add_button.textContent = 'добавить в отчет'
+    add_button.id = 'add_button|' + key
+    add_button.className = 'add-button'
+    add_button.addEventListener('click', addButtonEvent)
+
+
+
+
+    // div_container.appendChild(button)
+    div_container.appendChild(header)
+    div_container.appendChild(selector)
+    div_container.appendChild(consumptionInput)
+    div_container.appendChild(nutrition_info_div)
+    div_container.appendChild(add_button)
+    // div_container.appendChild(img)
+    container.appendChild(div_container);
+
+  }
+}
+
+
+
+
+
 
 //вспомогательная функция для определения выбранного продутка в определенной категории
+// выбираем к какому именно БЛОКУ обратились при выборе продукта
 function getSelectedItemPerCategory(category) {
   const tmp = document.getElementById('select|' + category).value
   const res = tmp.split("|")[1]
@@ -107,6 +176,7 @@ function chageConsumption() {
   const chozenProduct = getSelectedItemPerCategory(chozenCategory)
   updateConsumedInfo(chozenCategory, chozenProduct)
 }
+
 //обработчик нажатия кнопки добавления текущего потребления соответствующей категории
 function addButtonEvent() {
   const chozenCategory = getSelectedCategory(this.id)
@@ -131,6 +201,7 @@ function selectProductClickNew() {
 
   updateConsumedInfo(chozenCategory, chozenProduct)
 }
+
 function selectProductClick() {
   console.log(productCalories[this.value]);
   const nutritionInfo = this.nextElementSibling;
@@ -175,6 +246,11 @@ function calculateCalories() {
 
 
 
+
+
+
+
+
 // Sign in with email and password
 function SignIn() {
   const email = document.getElementById('email').value;
@@ -215,87 +291,5 @@ signInButton.addEventListener('click', SignIn)
 
 const signUpButton = document.getElementById('sigh-up')
 signInButton.addEventListener('click', SignUp)
-
-//динамические объекты
-
-function generateDivs() {
-  const container = document.getElementById("my_categories");
-  for (const [key, value] of Object.entries(myCategories)) {
-    console.log(key, value);
-    //созщдаем div контейнер
-    const div_container = document.createElement("div");
-    div_container.className = 'category product_image_style'
-    div_container.style = 'background-image: url(\"' + value['img'] + '\")'
-
-    //header
-    const header = document.createElement('h2')
-    header.textContent = key
-
-    //selector
-    const selector = document.createElement('select')
-    selector.className = 'select-where'
-    selector.id = 'select|' + key
-    selector.options.add(new Option('Выберите продукт', '0'))
-    for (const [product_key, product_value] of Object.entries(value.products)) {
-      console.log(product_value)
-      selector.options.add(new Option(product_key, key + "|" + product_key))
-    }
-    selector.addEventListener('change', selectProductClickNew)
-
-    //consumtion input
-    const consumptionInput = document.createElement('input')
-    consumptionInput.id = "input|" + key
-    consumptionInput.value = 100
-    consumptionInput.className = 'input-grams'
-    consumptionInput.addEventListener('change', chageConsumption)
-
-    //nutritients
-    const nutrition_info_div = document.createElement("div");
-    nutrition_info_div.className = 'nutrition_info'
-    nutrition_info_div.id = 'nutrition_info|' + key
-
-    //add button
-    const add_button = document.createElement('button')
-    add_button.textContent = 'добавить в отчет'
-    add_button.id = 'add_button|' + key
-    add_button.className = 'add-button'
-    add_button.addEventListener('click', addButtonEvent)
-
-
-
-
-    // div_container.appendChild(button)
-    div_container.appendChild(header)
-    div_container.appendChild(selector)
-    div_container.appendChild(consumptionInput)
-    div_container.appendChild(nutrition_info_div)
-    div_container.appendChild(add_button)
-    // div_container.appendChild(img)
-    container.appendChild(div_container);
-
-
-
-    //   <div class="category veggies">
-    //   <h2>Овощи</h2>
-    //   <select class="select-where" required>
-    //     <option value="0">Выберите продукт</option>
-    //     <option value="broccoli">Брокколи</option>
-    //     <option value="carrot">Морковь</option>
-    //     <option value="pepper">Перец</option>
-    //   </select>
-    //   <div class="nutrition_info"></div>
-    // </div>
-
-  }
-
-
-
-}
-// generateDivs()
-// document.addEventListener("DOMContentLoaded", function () {
-//   generateDivs();
-// });
-
-
 
 
