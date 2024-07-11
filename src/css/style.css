@@ -325,12 +325,25 @@ header {
   z-index: 2;
 }
 /* место для суммирования добавленных продуктов */
+
 .sum_amount {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   height: 200px;
-  background-color: #3a683c;
+  background-color: #78a77b;
+  color: black;
   max-width: 130rem;
+}
+
+.eaten {
+  color: white;
+  margin-top: 2rem;
+}
+
+.sum_amount p {
+  color: #dfefe0;
+  font-size: 3rem;
+  margin-top: 3rem;
 }
 /* .veggies {
   background-image: url("../../public/images/veggies.jpg");

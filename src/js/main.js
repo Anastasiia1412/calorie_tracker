@@ -18,7 +18,6 @@ const firebaseConfig = {
 };
 // инициализация подключения к файрбазу
 const app = initializeApp(firebaseConfig);
-
 // инициализация подкючения к реалтайм database (куда я загрузила САМА свои данные)
 const realtime_database = getDatabase(app);
 // создаёт ссылку на корень базы данных в Firebase Realtime Database, используя объект базы данных, который вы инициализировали ранее.
@@ -49,12 +48,6 @@ get(child(dbRef, `/categories`))
   });
 
 
-// const listOfCategories = document.querySelectorAll('.select-where');
-// listOfCategories.forEach((category) => {
-//   category.addEventListener('change', selectProductClick)
-// })
-
-
 //Создание динамических объектов
 
 function generateDivs() { //функция для создания основного дива id=my_categories;
@@ -62,16 +55,19 @@ function generateDivs() { //функция для создания основн�
   for (const [key, value] of Object.entries(myCategories)) { //Object.entries(myCategories) вход в "полученный словарь"
     // console.log(key, value);
 
-    //созщдаем div контейнер
+
+    //создаем div контейнер
     const div_container = document.createElement("div");
     div_container.className = 'category product_image_style'
     div_container.style = `background-image: url("${value.img}")`//берем значение img в словаре value
 
-    //header
+
+    //создаем header
     const header = document.createElement('h2')
     header.textContent = key
 
-    //selector
+
+    //создаем selector
     const selector = document.createElement('select')
     selector.className = 'select-where'
     selector.id = 'select|' + key
@@ -82,32 +78,34 @@ function generateDivs() { //функция для создания основн�
       // (product_key, key + "|" + product_key) ---> (key + "|" + product_key - значение value) а (product_key, - то что написано между треугольными скобками)
     }
     //запускается при изменении
-    // selector.addEventListener('change', selectProductClickNew)
     selector.addEventListener('change', selectProductClickFromNastya)
 
-    //consumtion input
+
+    //создаем consumtion input
     const consumptionInput = document.createElement('input')
     consumptionInput.id = "input|" + key
     consumptionInput.value = 100
     consumptionInput.className = 'input-grams'
-    // consumptionInput.addEventListener('change', chageConsumption)
     //запускается при изменении
     consumptionInput.addEventListener('change', chageConsumptionNastya)
 
 
-    //nutritients
+    //создаем nutritients
     const nutrition_info_div = document.createElement("div");
     nutrition_info_div.className = 'nutrition_info'
     nutrition_info_div.id = 'nutrition_info|' + key
 
-    //add button
+
+    //создаем add button
     const add_button = document.createElement('button')
     add_button.textContent = 'добавить в отчет'
     add_button.id = 'add_button|' + key
     add_button.className = 'add-button'
-    add_button.addEventListener('click', addButtonEvent)
+    // add_button.addEventListener('click', addButtonEvent)
+    add_button.addEventListener('click', addButtonEventFromNastya)
 
-    // div_container.appendChild(button)
+
+    //Добавляем все созданные элементы в div_container.appendChild(button)
     div_container.appendChild(header)
     div_container.appendChild(selector)
     div_container.appendChild(consumptionInput)
@@ -115,14 +113,17 @@ function generateDivs() { //функция для создания основн�
     div_container.appendChild(add_button)
     // div_container.appendChild(img)
     container.appendChild(div_container);
-
   }
 }
 
+
+
+
+//функция отвечающая за вебранную категорию и за выбранный продукт в селекторе, которая добавляет див с инфо о нутриентах
 function selectProductClickFromNastya() {
   const category_name = this.value.split("|")[0]
   const product_name = this.value.split("|")[1]
-  console.log(myCategories[category_name].products[product_name].calories)
+  // console.log(myCategories[category_name].products[product_name].calories)
   // console.log(category_name[product]);
   // console.log(this.value)
   // console.log(product.value);
@@ -132,6 +133,7 @@ function selectProductClickFromNastya() {
   } else {
     const nutrition = myCategories[category_name].products[product_name];
     nutritionInfo.innerHTML = `
+
             <p>Ккал: <br> ${nutrition.calories} ккал</p>
             <p>Белки: ${nutrition.proteins} г</p>
             <p>Жиры: ${nutrition.fats} г</p>
@@ -144,18 +146,53 @@ function selectProductClickFromNastya() {
 
 
 
+
+//функция отвечающая за изменение инпута (по умолчанию валью установлен 100) и пересчета нутриентов соответсвенно
+function chageConsumptionNastya() {
+  const newamount = this.value
+  const category_name = this.id.split("|")[1]
+  const currentselectedvalue = document.getElementById('select|' + category_name).value
+  const product_name = currentselectedvalue.split("|")[1]
+  // console.log(category_name);
+  // console.log(newamount);
+  // console.log(product_name);
+  const coeff = newamount / 100.0;
+  // console.log(coeff);
+  const nutritionInfo = document.getElementById('nutrition_info|' + category_name)
+  const nutrition = myCategories[category_name].products[product_name];
+  const test = {
+    calories: nutrition.calories * coeff,
+    proteins: nutrition.proteins * coeff,
+    fats: nutrition.fats * coeff,
+    carbs: nutrition.carbs * coeff
+  }
+  // console.log(test);
+  nutritionInfo.innerHTML = `
+            <p>Ккал: <br> ${(nutrition.calories * coeff).toFixed(2)} ккал</p>
+            <p>Белки: ${(nutrition.proteins * coeff).toFixed(2)} г</p>
+            <p>Жиры: ${(nutrition.fats * coeff).toFixed(2)} г</p>
+            <p>Углеводы: ${(nutrition.carbs * coeff).toFixed(2)} г</p>
+        `;
+}
+
+
+
+
+
+
+
 // Вспомогательная функция для определения выбранной категории на основе id  элемента
-function getSelectedCategory(id) {
-  return id.split("|")[1]
-}
+// function getSelectedCategory(id) {
+//   return id.split("|")[1]
+// }
 
 
-function selectProductClickNew() {
-  const chozenCategory = getSelectedCategory(this.id)
-  const chozenProduct = getSelectedItemPerCategory(chozenCategory)
+// function selectProductClickNew() {
+//   const chozenCategory = getSelectedCategory(this.id)
+//   const chozenProduct = getSelectedItemPerCategory(chozenCategory)
 
-  updateConsumedInfo(chozenCategory, chozenProduct)
-}
+//   updateConsumedInfo(chozenCategory, chozenProduct)
+// }
 
 //вспомогательная функция для определения выбранного продутка в определенной категории
 // выбираем к какому именно БЛОКУ обратились при выборе продукта
@@ -193,47 +230,47 @@ function updateConsumedInfo(categoryName, productName) {
 }
 
 
-function chageConsumptionNastya() {
-
-  const newamount = this.value
-  const category_name = this.id.split("|")[1]
-  const currentselectedvalue = document.getElementById('select|' + category_name).value
-  const product_name = currentselectedvalue.split("|")[1]
-  console.log(category_name);
-  console.log(newamount);
-  console.log(product_name);
-  const coeff = newamount / 100.0;
-  console.log(coeff);
-  const nutritionInfo = document.getElementById('nutrition_info|' + category_name)
-  const nutrition = myCategories[category_name].products[product_name];
-  const ttt = {
-    calories: nutrition.calories * coeff,
-    proteins: nutrition.proteins * coeff,
-    fats: nutrition.fats * coeff,
-    carbs: nutrition.carbs * coeff
-  }
-  console.log(ttt);
-  nutritionInfo.innerHTML = `
-            <p>Ккал: <br> ${(nutrition.calories * coeff).toFixed(2)} ккал</p>
-            <p>Белки: ${(nutrition.proteins * coeff).toFixed(2)} г</p>
-            <p>Жиры: ${(nutrition.fats * coeff).toFixed(2)} г</p>
-            <p>Углеводы: ${(nutrition.carbs * coeff).toFixed(2)} г</p>
-        `;
-
-
-
-  // const chageConsumptinput = document.getElementById('input|' + )
-}
 
 
 
 
 //обработчик изменения потребления пользователя
-function chageConsumption() {
-  const chozenCategory = getSelectedCategory(this.id)
-  const chozenProduct = getSelectedItemPerCategory(chozenCategory)
-  updateConsumedInfo(chozenCategory, chozenProduct)
+// function chageConsumption() {
+//   const chozenCategory = getSelectedCategory(this.id)
+//   const chozenProduct = getSelectedItemPerCategory(chozenCategory)
+//   updateConsumedInfo(chozenCategory, chozenProduct)
+// }
+
+
+function addButtonEventFromNastya() {
+  const category_name = this.id.split("|")[1]
+  console.log(category_name);
+
+  const currentselectedvalue = document.getElementById('select|' + category_name).value
+  const product_name = currentselectedvalue.split("|")[1]
+  console.log(product_name);
+
+  const nutrition = myCategories[category_name].products[product_name];
+  console.log(nutrition);
+
+  let report = document.getElementById('sum_calories')
+  const consumptionInput = document.getElementById('input|' + category_name)
+
+  const newamount = this.value / 100
+  console.log(newamount);
+  if (consumptionInput.value = 100) {
+    report.innerHTML = `
+            <p>Ккал: <br> ${nutrition.calories} ккал</p>
+            <p>Белки: ${nutrition.proteins} г</p>
+            <p>Жиры: ${nutrition.fats} г</p>
+            <p>Углеводы: ${nutrition.carbs} г</p>`
+  } else {
+
+  }
+
+
 }
+
 
 //обработчик нажатия кнопки добавления текущего потребления соответствующей категории
 function addButtonEvent() {
