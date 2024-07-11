@@ -1,5 +1,5 @@
 // импорт библиотек firebase
-console.log('hello world');
+
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getDatabase, ref, child, get } from "firebase/database";
@@ -18,9 +18,10 @@ const firebaseConfig = {
 };
 // инициализация подключения к файрбазу
 const app = initializeApp(firebaseConfig);
+
 // инициализация подкючения к реалтайм database (куда я загрузила САМА свои данные)
 const realtime_database = getDatabase(app);
-
+// создаёт ссылку на корень базы данных в Firebase Realtime Database, используя объект базы данных, который вы инициализировали ранее.
 const dbRef = ref(realtime_database);
 // добавление модуля авторизации
 const auth = getAuth(app)
@@ -47,18 +48,6 @@ get(child(dbRef, `/categories`))
     console.error(error);
   });
 
-get(child(dbRef, `/products`))
-  .then((snapshot) => {
-    if (snapshot.exists()) {
-      console.log(snapshot.val());
-      productCalories = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  })
-  .catch((error) => {
-    console.error(error);
-  });
 
 // const listOfCategories = document.querySelectorAll('.select-where');
 // listOfCategories.forEach((category) => {
@@ -66,7 +55,7 @@ get(child(dbRef, `/products`))
 // })
 
 
-//динамические объекты
+//Создание динамических объектов
 
 function generateDivs() { //функция для создания основного дива id=my_categories;
   const container = document.getElementById("my_categories"); //див my_categories прописан в HTML но пустой. Присаиваем этот див переменнойconst container;
@@ -92,14 +81,19 @@ function generateDivs() { //функция для создания основн�
       selector.options.add(new Option(product_key, key + "|" + product_key))
       // (product_key, key + "|" + product_key) ---> (key + "|" + product_key - значение value) а (product_key, - то что написано между треугольными скобками)
     }
-    selector.addEventListener('change', selectProductClickNew)
+    //запускается при изменении
+    // selector.addEventListener('change', selectProductClickNew)
+    selector.addEventListener('change', selectProductClickFromNastya)
 
     //consumtion input
     const consumptionInput = document.createElement('input')
     consumptionInput.id = "input|" + key
     consumptionInput.value = 100
     consumptionInput.className = 'input-grams'
-    consumptionInput.addEventListener('change', chageConsumption)
+    // consumptionInput.addEventListener('change', chageConsumption)
+    //запускается при изменении
+    consumptionInput.addEventListener('change', chageConsumptionNastya)
+
 
     //nutritients
     const nutrition_info_div = document.createElement("div");
@@ -113,9 +107,6 @@ function generateDivs() { //функция для создания основн�
     add_button.className = 'add-button'
     add_button.addEventListener('click', addButtonEvent)
 
-
-
-
     // div_container.appendChild(button)
     div_container.appendChild(header)
     div_container.appendChild(selector)
@@ -128,10 +119,43 @@ function generateDivs() { //функция для создания основн�
   }
 }
 
+function selectProductClickFromNastya() {
+  const category_name = this.value.split("|")[0]
+  const product_name = this.value.split("|")[1]
+  console.log(myCategories[category_name].products[product_name].calories)
+  // console.log(category_name[product]);
+  // console.log(this.value)
+  // console.log(product.value);
+  const nutritionInfo = document.getElementById('nutrition_info|' + category_name)
+  if (this.value === "0") {
+    nutritionInfo.innerHTML = "";
+  } else {
+    const nutrition = myCategories[category_name].products[product_name];
+    nutritionInfo.innerHTML = `
+            <p>Ккал: <br> ${nutrition.calories} ккал</p>
+            <p>Белки: ${nutrition.proteins} г</p>
+            <p>Жиры: ${nutrition.fats} г</p>
+            <p>Углеводы: ${nutrition.carbs} г</p>
+        `;
+  }
+  const updatedcategory = document.getElementById('input|' + category_name)
+  updatedcategory.value = 100;
+}
 
 
 
+// Вспомогательная функция для определения выбранной категории на основе id  элемента
+function getSelectedCategory(id) {
+  return id.split("|")[1]
+}
 
+
+function selectProductClickNew() {
+  const chozenCategory = getSelectedCategory(this.id)
+  const chozenProduct = getSelectedItemPerCategory(chozenCategory)
+
+  updateConsumedInfo(chozenCategory, chozenProduct)
+}
 
 //вспомогательная функция для определения выбранного продутка в определенной категории
 // выбираем к какому именно БЛОКУ обратились при выборе продукта
@@ -141,10 +165,8 @@ function getSelectedItemPerCategory(category) {
   return res
 }
 
-//Вспомогательная функция для определения выбранной категории на основе id  элемента
-function getSelectedCategory(id) {
-  return id.split("|")[1]
-}
+
+
 
 //вспомогательная функция для определения потребленных значений выбранного продукта на основе id элемента
 function getConsumedValue(id) {
@@ -169,6 +191,42 @@ function updateConsumedInfo(categoryName, productName) {
     `;
   }
 }
+
+
+function chageConsumptionNastya() {
+
+  const newamount = this.value
+  const category_name = this.id.split("|")[1]
+  const currentselectedvalue = document.getElementById('select|' + category_name).value
+  const product_name = currentselectedvalue.split("|")[1]
+  console.log(category_name);
+  console.log(newamount);
+  console.log(product_name);
+  const coeff = newamount / 100.0;
+  console.log(coeff);
+  const nutritionInfo = document.getElementById('nutrition_info|' + category_name)
+  const nutrition = myCategories[category_name].products[product_name];
+  const ttt = {
+    calories: nutrition.calories * coeff,
+    proteins: nutrition.proteins * coeff,
+    fats: nutrition.fats * coeff,
+    carbs: nutrition.carbs * coeff
+  }
+  console.log(ttt);
+  nutritionInfo.innerHTML = `
+            <p>Ккал: <br> ${(nutrition.calories * coeff).toFixed(2)} ккал</p>
+            <p>Белки: ${(nutrition.proteins * coeff).toFixed(2)} г</p>
+            <p>Жиры: ${(nutrition.fats * coeff).toFixed(2)} г</p>
+            <p>Углеводы: ${(nutrition.carbs * coeff).toFixed(2)} г</p>
+        `;
+
+
+
+  // const chageConsumptinput = document.getElementById('input|' + )
+}
+
+
+
 
 //обработчик изменения потребления пользователя
 function chageConsumption() {
@@ -195,35 +253,48 @@ function addButtonEvent() {
 
 }
 
-function selectProductClickNew() {
-  const chozenCategory = getSelectedCategory(this.id)
-  const chozenProduct = getSelectedItemPerCategory(chozenCategory)
-
-  updateConsumedInfo(chozenCategory, chozenProduct)
-}
-
-function selectProductClick() {
-  console.log(productCalories[this.value]);
-  const nutritionInfo = this.nextElementSibling;
-
-  if (this.value === "0") {
-    nutritionInfo.innerHTML = "";
-  } else {
-    const nutrition = productCalories[this.value];
-    nutritionInfo.innerHTML = `
-        <p>Ккал: <br> ${nutrition.calories} ккал</p>
-        <p>Белки: ${nutrition.proteins} г</p>
-        <p>Жиры: ${nutrition.fats} г</p>
-        <p>Углеводы: ${nutrition.carbs} г</p>
-    `;
-  }
-}
 
 
-const startCalculateCalories = document.getElementById('btn-count-calories');
-startCalculateCalories.addEventListener('click', calculateCalories)
+// function selectProductClick() {
+//   console.log(productCalories[this.value]);
+//   const nutritionInfo = this.nextElementSibling;
+
+//   if (this.value === "0") {
+//     nutritionInfo.innerHTML = "";
+//   } else {
+//     const nutrition = productCalories[this.value];
+//     nutritionInfo.innerHTML = `
+//         <p>Ккал: <br> ${nutrition.calories} ккал</p>
+//         <p>Белки: ${nutrition.proteins} г</p>
+//         <p>Жиры: ${nutrition.fats} г</p>
+//         <p>Углеводы: ${nutrition.carbs} г</p>
+//     `;
+//   }
+// }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// расчет суточной нормы ккал
 function calculateCalories() {
   const weight = document.getElementById('weight').value
   const height = document.getElementById('height').value
@@ -234,21 +305,16 @@ function calculateCalories() {
     alert('Please fill in all fields');
     return;
   }
-
   const bmr = 10 * weight + 6.25 * height - 5 * age + 5;
   // Calorie needs calculation
   const calories = bmr * activity;
-
   document.getElementById('result').innerHTML = `Ваша ежедневная норма составляет: ${Math.round(calories)} calories`
   console.log(Math.round(calories));
 
 }
 
-
-
-
-
-
+const startCalculateCalories = document.getElementById('btn-count-calories');
+startCalculateCalories.addEventListener('click', calculateCalories)
 
 
 // Sign in with email and password
