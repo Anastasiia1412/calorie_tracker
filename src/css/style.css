@@ -110,7 +110,7 @@ header {
 }
 
 .norma {
-  background-color: black;
+  /* background-color: black; */
   margin-top: 6rem;
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -329,7 +329,7 @@ header {
 .sum_amount {
   display: flex;
   justify-content: space-between;
-  height: 200px;
+  height: 100px;
   background-color: #78a77b;
   color: black;
   max-width: 130rem;
@@ -344,6 +344,7 @@ header {
   color: #dfefe0;
   font-size: 3rem;
   margin-top: 3rem;
+  text-align: center;
 }
 /* .veggies {
   background-image: url("../../public/images/veggies.jpg");

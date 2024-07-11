@@ -32,6 +32,13 @@ let myCategories = {}; //изначально словарь пустой
 let consumedCalories = 0.0;
 let consumedProteins = 0.0;
 
+let total = {
+  calories: 0,
+  proteins: 0,
+  fats: 0,
+  carbs: 0
+}
+
 
 get(child(dbRef, `/categories`))
   .then((snapshot) => {
@@ -123,10 +130,6 @@ function generateDivs() { //функция для создания основн�
 function selectProductClickFromNastya() {
   const category_name = this.value.split("|")[0]
   const product_name = this.value.split("|")[1]
-  // console.log(myCategories[category_name].products[product_name].calories)
-  // console.log(category_name[product]);
-  // console.log(this.value)
-  // console.log(product.value);
   const nutritionInfo = document.getElementById('nutrition_info|' + category_name)
   if (this.value === "0") {
     nutritionInfo.innerHTML = "";
@@ -134,7 +137,7 @@ function selectProductClickFromNastya() {
     const nutrition = myCategories[category_name].products[product_name];
     nutritionInfo.innerHTML = `
 
-            <p>Ккал: <br> ${nutrition.calories} ккал</p>
+            <p>Ккал: ${nutrition.calories}</p>
             <p>Белки: ${nutrition.proteins} г</p>
             <p>Жиры: ${nutrition.fats} г</p>
             <p>Углеводы: ${nutrition.carbs} г</p>
@@ -153,22 +156,11 @@ function chageConsumptionNastya() {
   const category_name = this.id.split("|")[1]
   const currentselectedvalue = document.getElementById('select|' + category_name).value
   const product_name = currentselectedvalue.split("|")[1]
-  // console.log(category_name);
-  // console.log(newamount);
-  // console.log(product_name);
   const coeff = newamount / 100.0;
-  // console.log(coeff);
   const nutritionInfo = document.getElementById('nutrition_info|' + category_name)
   const nutrition = myCategories[category_name].products[product_name];
-  const test = {
-    calories: nutrition.calories * coeff,
-    proteins: nutrition.proteins * coeff,
-    fats: nutrition.fats * coeff,
-    carbs: nutrition.carbs * coeff
-  }
-  // console.log(test);
   nutritionInfo.innerHTML = `
-            <p>Ккал: <br> ${(nutrition.calories * coeff).toFixed(2)} ккал</p>
+            <p>Ккал: <br> ${(nutrition.calories * coeff).toFixed(2)}</p>
             <p>Белки: ${(nutrition.proteins * coeff).toFixed(2)} г</p>
             <p>Жиры: ${(nutrition.fats * coeff).toFixed(2)} г</p>
             <p>Углеводы: ${(nutrition.carbs * coeff).toFixed(2)} г</p>
@@ -178,153 +170,29 @@ function chageConsumptionNastya() {
 
 
 
-
-
-
-// Вспомогательная функция для определения выбранной категории на основе id  элемента
-// function getSelectedCategory(id) {
-//   return id.split("|")[1]
-// }
-
-
-// function selectProductClickNew() {
-//   const chozenCategory = getSelectedCategory(this.id)
-//   const chozenProduct = getSelectedItemPerCategory(chozenCategory)
-
-//   updateConsumedInfo(chozenCategory, chozenProduct)
-// }
-
-//вспомогательная функция для определения выбранного продутка в определенной категории
-// выбираем к какому именно БЛОКУ обратились при выборе продукта
-function getSelectedItemPerCategory(category) {
-  const tmp = document.getElementById('select|' + category).value
-  const res = tmp.split("|")[1]
-  return res
-}
-
-
-
-
-//вспомогательная функция для определения потребленных значений выбранного продукта на основе id элемента
-function getConsumedValue(id) {
-  return Number(document.getElementById('input|' + getSelectedCategory(id)).value)
-}
-
-//функция обновления информации о текущем продутке с учетом заданного потребления
-function updateConsumedInfo(categoryName, productName) {
-  console.log(categoryName)
-  console.log(productName)
-  let nutritionInfo = document.getElementById('nutrition_info|' + categoryName)
-  const consumedInput = Number(document.getElementById('input|' + categoryName).value)
-  if (productName === "0") {
-    nutritionInfo.innerHTML = "";
-  } else {
-    const nutrition = myCategories[categoryName]['products'][productName];
-    nutritionInfo.innerHTML = `
-        <p>Ккал: <br> ${Math.round(nutrition.calories / 100 * consumedInput, 2)} ккал</p>
-        <p>Белки: ${Math.round(nutrition.proteins / 100 * consumedInput, 2)} г</p>
-        <p>Жиры: ${Math.round(nutrition.fats / 100 * consumedInput, 2)} г</p>
-        <p>Углеводы: ${Math.round(nutrition.carbs / 100 * consumedInput, 2)} г</p>
-    `;
-  }
-}
-
-
-
-
-
-
-//обработчик изменения потребления пользователя
-// function chageConsumption() {
-//   const chozenCategory = getSelectedCategory(this.id)
-//   const chozenProduct = getSelectedItemPerCategory(chozenCategory)
-//   updateConsumedInfo(chozenCategory, chozenProduct)
-// }
-
-
 function addButtonEventFromNastya() {
   const category_name = this.id.split("|")[1]
-  console.log(category_name);
 
   const currentselectedvalue = document.getElementById('select|' + category_name).value
   const product_name = currentselectedvalue.split("|")[1]
-  console.log(product_name);
-
-  const nutrition = myCategories[category_name].products[product_name];
-  console.log(nutrition);
 
   let report = document.getElementById('sum_calories')
   const consumptionInput = document.getElementById('input|' + category_name)
+  const coeff = consumptionInput.value / 100
+  const nutrition = myCategories[category_name].products[product_name];
 
-  const newamount = this.value / 100
-  console.log(newamount);
-  if (consumptionInput.value = 100) {
-    report.innerHTML = `
-            <p>Ккал: <br> ${nutrition.calories} ккал</p>
-            <p>Белки: ${nutrition.proteins} г</p>
-            <p>Жиры: ${nutrition.fats} г</p>
-            <p>Углеводы: ${nutrition.carbs} г</p>`
-  } else {
+  total.calories = total.calories + (nutrition.calories * coeff)
+  total.proteins = total.proteins + (nutrition.proteins * coeff)
+  total.fats = total.fats + (nutrition.fats * coeff)
+  total.carbs = total.carbs + (nutrition.carbs * coeff)
 
-  }
-
-
+  report.innerHTML = `
+            <p>Ккал: ${(total.calories).toFixed(1)} ккал</p>
+            <p>Белки: ${(total.proteins).toFixed(1)} г</p>
+            <p>Жиры: ${(total.fats).toFixed(1)} г</p>
+            <p>Углеводы: ${(total.carbs).toFixed(1)} г</p>
+        `;
 }
-
-
-//обработчик нажатия кнопки добавления текущего потребления соответствующей категории
-function addButtonEvent() {
-  const chozenCategory = getSelectedCategory(this.id)
-  const chozenProduct = getSelectedItemPerCategory(chozenCategory)
-  const consumed = getConsumedValue(this.id)
-  if (chozenProduct != undefined) {
-    console.log(consumed)
-    console.log(chozenCategory)
-    console.log(chozenProduct)
-    const nutrition = myCategories[chozenCategory]['products'][chozenProduct];
-    consumedCalories = consumedCalories + Number(nutrition.calories / 100 * consumed)
-    consumedProteins = consumedProteins + Number(nutrition.proteins / 100 * consumed)
-    const str = `calories = ${consumedCalories}; proteins = ${consumedProteins}.`
-    console.log(str)
-  }
-
-}
-
-
-
-// function selectProductClick() {
-//   console.log(productCalories[this.value]);
-//   const nutritionInfo = this.nextElementSibling;
-
-//   if (this.value === "0") {
-//     nutritionInfo.innerHTML = "";
-//   } else {
-//     const nutrition = productCalories[this.value];
-//     nutritionInfo.innerHTML = `
-//         <p>Ккал: <br> ${nutrition.calories} ккал</p>
-//         <p>Белки: ${nutrition.proteins} г</p>
-//         <p>Жиры: ${nutrition.fats} г</p>
-//         <p>Углеводы: ${nutrition.carbs} г</p>
-//     `;
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
