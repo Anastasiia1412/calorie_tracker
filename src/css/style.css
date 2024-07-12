@@ -571,3 +571,79 @@ header {
   border-radius: 5px;
   font-size: 2rem;
 }
+
+/* ////////////////////////////////////////////////////////////fooooter////////////////////////////////////////////*/
+/* главный блок*/
+.footer-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 7rem;
+  margin-bottom: 7rem;
+}
+/* блок с лого*/
+.logo-col {
+  display: flex;
+  flex-direction: column;
+  align-self: center; /* Вертикальное выравнивание по центру */
+  justify-self: center; /* Горизонтальное выравнивание по центру */
+}
+/* блок с адресом*/
+.adress-col {
+  display: flex;
+  flex-direction: column;
+}
+/* стилизация лого*/
+.footer-logo {
+  display: flex;
+  margin-bottom: 3.2rem;
+  justify-content: center;
+}
+/* стилизация списка с лого*/
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: 4rem;
+  justify-content: center;
+}
+/* стилизация строчки о правах*/
+.copyright {
+  font-size: 1.4rem;
+  color: #767676;
+  margin-top: 3rem;
+  align-self: center; /* Вертикальное выравнивание по центру */
+  justify-self: center;
+}
+/* стилизация иконок социальных сетей*/
+.social-icon {
+  display: flex;
+  height: 4.4rem;
+  width: 4.4rem;
+  color: #264628;
+}
+/* блок с адресами*/
+.adress-col {
+  display: flex;
+  flex-direction: column;
+  align-self: center; /* Вертикальное выравнивание по центру */
+  justify-self: center; /* Горизонтальное выравнивание по центру */
+}
+/* стилизация адрес*/
+.address,
+.footer-link {
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+  color: #767676;
+}
+
+/* .footer-link {
+
+  font-style: normal;
+}*/
+.footer-heading {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 4rem;
+  color: #333;
+}
